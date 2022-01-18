@@ -55,7 +55,7 @@ class CreateColleagueCommand extends Command
         $this->em->flush();
 
         if ($colleague->getId()) {
-            $io->success('Colleague successfully created.');
+            $io->success('Colleague id= ' .$colleague->getId(). ' successfully created.');
         } else {
             $io->error('Oops something went wrong. Colleague not created.');
         }
