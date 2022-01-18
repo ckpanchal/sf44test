@@ -1,0 +1,5 @@
+{{ form_start(form) }}
+    {{ form_widget(form) }}
+    <button class="btn btn-primary">{{ button_label|default('Save') }}</button>
+    <a href="{{ path('colleague_index') }}" class="btn btn-warning">Back</a>
+{{ form_end(form) }}

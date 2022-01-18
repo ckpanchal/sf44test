@@ -1,20 +1,95 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello ColleagueController!{% endblock %}
+{% block title %}Colleague{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+    <div class="row">
+        <div class="col-md-10">
+            <h1>Colleagues</h1>
+        </div>
+        <div class="col-md-2">
+            <a href="{{ path('colleague_new') }}" class="btn btn-primary">Add New</a>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            {% for label, messages in app.flashes(['success', 'danger']) %}
+                {% for message in messages %}
+                    <div class="alert alert-{{ label }}" role="alert">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endfor %}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>FileName</th>
+                        <th>Note</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for colleague in colleagues %}
+                    <tr>
+                        <td>{{ colleague.id }}</td>
+                        <td>{{ colleague.name }}</td>
+                        <td>{{ colleague.email }}</td>
+                        <td>
+                            {% if colleague.fileName is not empty %}
+                                <img src="{{ vich_uploader_asset(colleague, 'file') }}" alt="{{ colleague.fileName }}" width="100" height="100" />
+                            {% else %}
+                                N/A
+                            {% endif %}
+                        </td>
+                        <td>
+                            {% if colleague.note is not empty %}
+                                {{ colleague.note }}
+                            {% else %}
+                                N/A
+                            {% endif %}
+                        </td>
+                        <td>
+                            <table class="action-buttons">
+                                <tr>
+                                    <td><a href="{{ path('colleague_show', {'id': colleague.id}) }}" class="btn btn-primary btn-sm">Show</a></td>
+                                    <td><a href="{{ path('colleague_edit', {'id': colleague.id}) }}" class="btn btn-warning btn-sm">Edit</a></td>
+                                    <td><a href="{{ path('colleague_greeting_email', {'id': colleague.id}) }}" class="btn btn-info btn-sm">Send Mail</a></td>
+                                    <td>
+                                        <form method="post" action="{{ path('colleague_delete', {'id': colleague.id}) }}" onsubmit="return confirm('Are you sure you want to delete this item?');">
+                                            <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ colleague.id) }}">
+                                            <button class="btn btn-danger btn-sm">Delete</button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td colspan="6">no records found</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ 'C:/xampp/htdocs/sf44test/src/Controller/ColleagueController.php'|file_link(0) }}">src/Controller/ColleagueController.php</a></code></li>
-        <li>Your template at <code><a href="{{ 'C:/xampp/htdocs/sf44test/templates/colleague/index.html.twig'|file_link(0) }}">templates/colleague/index.html.twig</a></code></li>
-    </ul>
-</div>
+{% block javascripts %}
+<script src="https://code.jquery.com/jquery-1.9.1.js"></script>
+<script type="text/javascript">
+    $(document).ready(function(){
+        $(".alert").fadeTo(2000, 500).slideUp(500, function(){
+            $(".alert").slideUp(500);
+        });
+    });
+</script>
 {% endblock %}
