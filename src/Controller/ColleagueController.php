@@ -117,7 +117,7 @@ class ColleagueController extends AbstractController
     {
         $email = (new TemplatedEmail())
                         ->from('admin@example.com')
-                        ->to(new Address($colleague->email))
+                        ->to(new Address($colleague->getEmail()))
                         ->subject('Welcome To Symfony 4.4 Test!')
                         ->htmlTemplate('emails/welcome.html.twig')
                         ->context([

@@ -10,6 +10,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 use App\Entity\Colleague;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\Console\Question\Question;
 
 class CreateColleagueCommand extends Command
 {
@@ -30,18 +31,43 @@ class CreateColleagueCommand extends Command
     {
         $this
             ->setDescription(self::$defaultDescription)
-            ->addArgument('name', InputArgument::REQUIRED, 'Enter colleague fullname')
-            ->addArgument('email', InputArgument::REQUIRED, 'Enter colleague email')
-            ->addArgument('note', InputArgument::OPTIONAL, 'Enter note for colleague')
         ;
     }
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $io = new SymfonyStyle($input, $output);
-        $name = $input->getArgument('name');
-        $email = $input->getArgument('email');
-        $note = $input->getArgument('note');
+        $helper = $this->getHelper('question');
+
+        // Question for colleague name
+        $nameQuestion = new Question('Please enter name (Required):');
+        $nameQuestion->setValidator(function ($value) {
+            if (trim($value) == '') {
+                throw new \Exception('Name is required');
+            }
+            return $value;
+        });
+        $nameQuestion->setMaxAttempts(3);
+        $name = $helper->ask($input, $output, $nameQuestion);
+
+        // Question for colleague email
+        $emailQuestion = new Question('Please enter email (Required):');
+        $emailQuestion->setValidator(function ($value) {
+            if (trim($value) == '') {
+                throw new \Exception('Email is required');
+            }
+
+            if (!filter_var($value, FILTER_VALIDATE_EMAIL)) {
+                throw new \Exception('Please enter valid email');
+            }
+            return $value;
+        });
+        $emailQuestion->setMaxAttempts(3);
+        $email = $helper->ask($input, $output, $emailQuestion);
+
+        // Question for notes
+        $noteQuestion = new Question('Write some note about colleague (Optional):');
+        $note = $helper->ask($input, $output, $noteQuestion);
 
         $colleague = new Colleague();
         $colleague->setName($name);
