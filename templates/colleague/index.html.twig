@@ -84,7 +84,7 @@
 
 
 {% block javascripts %}
-<script src="https://code.jquery.com/jquery-1.9.1.js"></script>
+{{ parent() }}
 <script type="text/javascript">
     $(document).ready(function(){
         $(".alert").fadeTo(2000, 500).slideUp(500, function(){

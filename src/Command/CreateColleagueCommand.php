@@ -72,7 +72,7 @@ class CreateColleagueCommand extends Command
         $colleague = new Colleague();
         $colleague->setName($name);
         $colleague->setEmail($email);
-
+        $colleague->setCreated(new \DateTime());
         if (!empty($note)) {
             $colleague->setNote($note);
         }

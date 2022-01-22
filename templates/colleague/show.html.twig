@@ -20,8 +20,13 @@
                 <td>{{ colleague.email }}</td>
             </tr>
             <tr>
-                <th>FileName</th>
-                <td>{{ colleague.fileName }}</td>
+                <th>Picture</th>
+                <td>{% if colleague.fileName is not empty %}
+                        <img src="{{ vich_uploader_asset(colleague, 'file') }}" alt="{{ colleague.fileName }}" width="100" height="100" />
+                    {% else %}
+                        N/A
+                    {% endif %}
+                </td>
             </tr>
             <tr>
                 <th>Note</th>

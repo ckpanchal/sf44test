@@ -40,6 +40,7 @@ class ColleagueController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $colleague->setCreated(new \DateTime());
             $entityManager->persist($colleague);
             $entityManager->flush();
 
@@ -76,6 +77,7 @@ class ColleagueController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $colleague->setUpdated(new \DateTime());
             $entityManager->persist($colleague);
             $entityManager->flush();
 
