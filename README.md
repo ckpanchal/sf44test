@@ -4,11 +4,15 @@
 
 2. Run `composer install` command to install all project dependencies.
 
-3. Create MySQL database and add configuration in `.env`
+3. Add database server credentials in `.env` file.
 
-4. For Broswer User, Run `symfony server:start --d` command to run server and redirect to `http://127.0.0.1:8000` to view colleague list
+4. Run `php bin/console doctrine:database:create` command to create database.
 
-5. For CLI User, Run `php bin/console app:create-colleague` command to add new colleague
+5. Run `php bin/console doctrine:schema:update --force` command to create tables in database.
+
+6. For Broswer User, Run `symfony server:start --d` command to run server and redirect to `http://127.0.0.1:8000` to view colleague list
+
+7. For CLI User, Run `php bin/console app:create-colleague` command to add new colleague
 
 ## Test Cases
 
