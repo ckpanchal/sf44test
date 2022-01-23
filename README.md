@@ -1,8 +1,8 @@
 ## Project Installation Instructions
 
-1. Clone Project
+1. Clone Project using `git clone https://github.com/ckpanchal/sf44test.git` command.
 
-2. Composer Install
+2. Run `composer Install` command to install all project dependencies.
 
 3. Create MySQL database and add configuration in `.env`
 
