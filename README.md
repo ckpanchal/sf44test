@@ -6,11 +6,9 @@
 
 3. Create MySQL database and add configuration in `.env`
 
-4. Add <a href="https://mailtrap.io/">mailtrap</a> credentials to `.env` file
+4. For Broswer User, Run `symfony server:start --d` command to run server and redirect to `http://127.0.0.1:8000` to view colleague list
 
-5. For Broswer User, Run `symfony server:start --d` command to run server and redirect to `http://127.0.0.1:8000` to view colleague list
-
-6. For CLI User, Run `php bin/console app:create-colleague` command to add new colleague
+5. For CLI User, Run `php bin/console app:create-colleague` command to add new colleague
 
 ## Test Cases
 
