@@ -8,6 +8,12 @@
 
 4. Add <a href="https://mailtrap.io/">mailtrap</a> credentials to `.env` file
 
-5. For Broswer User, Run `symfony server:start --d` command to run server and redirect to `http://127.0.0.1:8000/colleague` to view colleague list
+5. For Broswer User, Run `symfony server:start --d` command to run server and redirect to `http://127.0.0.1:8000` to view colleague list
 
-6. For CLI User, Run `php bin/console app:create-colleague "name" "email" "notes"` command to add new colleague
+6. For CLI User, Run `php bin/console app:create-colleague` command to add new colleague
+
+## Test Cases
+
+1. Run `php bin/console doctrine:schema:update --force --env=test` command to create test database
+
+2. Run `php ./vendor/bin/phpunit` command to run test
