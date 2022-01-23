@@ -16,6 +16,8 @@
 
 ## Test Cases
 
-1. Run `php bin/console doctrine:schema:update --force --env=test` command to create test database
+1. Run `php bin/console doctrine:database:create --env=test` command to create test database.
 
-2. Run `php ./vendor/bin/phpunit` command to run test
+2. Run `php bin/console doctrine:schema:update --force --env=test` command to create test database
+
+3. Run `php ./vendor/bin/phpunit` command to run test
